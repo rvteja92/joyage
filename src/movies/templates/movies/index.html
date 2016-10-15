@@ -1,0 +1,95 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+    <h3>All Movies</h3>
+    <div>(Page {{ page.number }} of {{ number }})</div>
+
+    <div class="col-xs-12">
+        <nav>
+            <ul class="pager">
+                {%  if not page.has_previous %}
+                <li class="previous disabled">
+                    <a href="#">
+                        <span aria-hidden="true">&larr;</span>
+                        Previous
+                    </a>
+                </li>
+                {% else %}
+                <li class="previous">
+                    <a href="?page={{page.previous_page_number}}">
+                        <span aria-hidden="true">&larr;</span>
+                        Previous
+                    </a>
+                </li>
+                {% endif %}
+                {%  if not page.has_next %}
+                <li class="next disabled">
+                    <a href="#">
+                        Next
+                        <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="next">
+                    <a href="?page={{page.next_page_number}}">
+                        Next
+                        <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    {% for movie in page %}
+
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
+            <div onclick="location.href='{% url 'movies:movie' movie.id %}'" class="movie-banner">
+                <img src="{{ movie.image }}" alt="{{ movie.name }}"></img>
+                <div class="board">
+                    <h4 class="movie-title">
+                        <a href="{% url 'movies:movie' movie.id %}">{{ movie.name }}</a>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    <div class="col-xs-12">
+        <nav>
+            <ul class="pager">
+                {%  if not page.has_previous %}
+                <li class="previous disabled">
+                    <a href="#">
+                        <span aria-hidden="true">&larr;</span>
+                        Previous
+                    </a>
+                </li>
+                {% else %}
+                <li class="previous">
+                    <a href="?page={{page.previous_page_number}}">
+                        <span aria-hidden="true">&larr;</span>
+                        Previous
+                    </a>
+                </li>
+                {% endif %}
+                {%  if not page.has_next %}
+                <li class="next disabled">
+                    <a href="#">
+                        Next
+                        <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="next">
+                    <a href="?page={{page.next_page_number}}">
+                        Next
+                        <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

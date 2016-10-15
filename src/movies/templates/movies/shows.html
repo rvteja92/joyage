@@ -1,0 +1,142 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-xs-12">
+                <div class="movie-poster">
+                    <img src="{{ movie.image }}" alt="{{ movie.name }}"></img>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-xs-12">
+                <div class="board">
+                    <h3 class="movie-shows-title">
+                        {{ movie.name }}
+                        <div class="movie-duration">
+                            ({{ movie.get_duration }})
+                        </div>
+                    </h3>
+                    <div>
+                        Screen format:
+                        {{ movie.screen_format }}
+                    </div>
+
+                    <div>
+                        Genres:
+                        {% for tag in movie.tags.all %}
+                            <span class="label label-primary">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <nav>
+                            <ul class="pager">
+                                {%  if not shows.has_previous %}
+                                <li class="previous disabled">
+                                    <a href="#">
+                                        <span aria-hidden="true">&larr;</span>
+                                        Previous
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="previous">
+                                    <a href="?page={{shows.previous_page_number}}">
+                                        <span aria-hidden="true">&larr;</span>
+                                        Previous
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li>(Page {{ shows.number }} of {{ number }})</li>
+                                {%  if not shows.has_next %}
+                                <li class="next disabled">
+                                    <a href="#">
+                                        Next
+                                        <span aria-hidden="true">&rarr;</span>
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="next">
+                                    <a href="?page={{shows.next_page_number}}">
+                                        Next
+                                        <span aria-hidden="true">&rarr;</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="movie-shows">
+                    {% for show in shows %}
+                        <div class="theater-show">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <b>Theater: </b>{{ show.0 }}
+                                        <span class="badge" title="{{show.2|length}} show(s)">{{ show.2|length }}</span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    {% for time in show.2 %}
+                                        <button class="btn btn-success" type="button" href="#">
+                                            {{time}}
+                                        </button>
+                                    {% endfor %}
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="show-theater-address">
+                                        <b>Address: </b>{{ show.1 }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <nav>
+                            <ul class="pager">
+                                {%  if not shows.has_previous %}
+                                <li class="previous disabled">
+                                    <a href="#">
+                                        <span aria-hidden="true">&larr;</span>
+                                        Previous
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="previous">
+                                    <a href="?page={{shows.previous_page_number}}">
+                                        <span aria-hidden="true">&larr;</span>
+                                        Previous
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li>(Page {{ shows.number }} of {{ number }})</li>
+                                {%  if not shows.has_next %}
+                                <li class="next disabled">
+                                    <a href="#">
+                                        Next
+                                        <span aria-hidden="true">&rarr;</span>
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="next">
+                                    <a href="?page={{shows.next_page_number}}">
+                                        Next
+                                        <span aria-hidden="true">&rarr;</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
