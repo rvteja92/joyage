@@ -1,2 +1,4 @@
 Django==1.8
+gunicorn==19.6.0
 requests==2.10.0
+whitenoise==3.2.2
