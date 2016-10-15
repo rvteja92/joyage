@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath src project.wsgi --log-file -
+web: gunicorn --pythonpath src joyage.wsgi --log-file -
